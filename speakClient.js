@@ -1,6 +1,11 @@
 var speakWorker;
 try {
-  speakWorker = new Worker('speakWorker.js');
+  if(window.jQuery){
+    var path = $("script:[src$='speakClient.js']").attr('src').replace(/speakClient.js$/,'');
+    speakWorker = new Worker(path+'speakWorker.js');    
+  }else{
+    speakWorker = new Worker('speakWorker.js');    
+  }
 } catch(e) {
   console.log('speak.js warning: no worker support');
 }
